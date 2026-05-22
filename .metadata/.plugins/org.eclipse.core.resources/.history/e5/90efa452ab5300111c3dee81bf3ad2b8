@@ -1,0 +1,13 @@
+package com.funactional;
+
+import java.util.function.Predicate;
+
+public class PredicateDemo {
+	public static void main(String[] args) {
+		
+	
+	Predicate<String> str=s -> s.equals("dj"); 
+	
+ System.out.println(str.test("dj"));
+}
+}

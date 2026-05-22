@@ -1,0 +1,44 @@
+package com.lcwd.hotel.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.lcwd.hotel.entity.Hotel;
+import com.lcwd.hotel.exceptions.ResourceNotFoundEx;
+import com.lcwd.hotel.repo.HotelRepo;
+
+@Service
+public class HotelServiceImpl implements HotelService{
+	@Autowired
+	private HotelRepo  hotelRepo;
+
+	@Override
+	public Hotel createHotel(Hotel hotel) {
+		String string = UUID.randomUUID().toString();
+		hotel.setId(string);
+		Hotel saveHotel = hotelRepo.save(hotel);
+		return saveHotel;
+	}
+
+	@Override
+	public List<Hotel> getAllHotels() {
+		return hotelRepo.findAll();
+		
+	}
+
+	@Override
+	public Hotel gethotel(String id) {
+		return hotelRepo.findById(id).orElseThrow(() -> new ResourceNotFoundEx("No Hoteles found!!!")); 
+		//return null;
+	}
+
+	@Override
+	public Hotel gethotelByName(String name) {
+		return hotelRepo.findByName(name);//.orElseThrow(() -> new ResourceNotFoundEx("Not FOund!!"));
+		//return null;
+	}
+
+}

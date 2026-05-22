@@ -1,0 +1,64 @@
+package com.lcwd.hotel.controller;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.lcwd.hotel.entity.Hotel;
+import com.lcwd.hotel.exceptions.ErrorResponse;
+import com.lcwd.hotel.exceptions.ResourceNotFoundEx;
+import com.lcwd.hotel.service.HotelService;
+
+@RestController
+@RequestMapping("/hotels")
+public class HotelController {
+@Autowired
+	private HotelService hotelService;
+	
+
+	//create
+@PostMapping
+ResponseEntity<Hotel> createHotel(@RequestBody  Hotel hotel)
+{
+	Hotel hotel2 = hotelService.createHotel(hotel);
+	return ResponseEntity.status(HttpStatus.CREATED).body(hotel2);
+}
+
+@GetMapping("/{hotelId}")
+ResponseEntity<?> getHotelById(@PathVariable String hotelId)
+{
+	
+	//Traditional way to handle Exception handling
+	try
+	{
+	Hotel hotel2 = hotelService.gethotel(hotelId);
+	return ResponseEntity.status(HttpStatus.OK).body(hotel2);
+	}
+	catch(ResourceNotFoundEx e)
+	{
+		ErrorResponse errorResponse=new ErrorResponse(LocalDateTime.now(),e.toString(),"HOtel not found for "+hotelId);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+	}
+	//return null;
+	
+	
+	
+}
+@GetMapping
+ResponseEntity<List<Hotel>> getHotels()
+{
+	List<Hotel> hotel2 = hotelService.getAllHotels();
+	return ResponseEntity.status(HttpStatus.OK).body(hotel2);
+}
+
+}

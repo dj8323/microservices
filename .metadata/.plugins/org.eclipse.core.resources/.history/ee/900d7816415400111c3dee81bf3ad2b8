@@ -1,0 +1,32 @@
+package com.lcwd.hotel.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.lcwd.hotel.entity.Hotel;
+import com.lcwd.hotel.repo.HotelRepo;
+
+public class HotelServiceImpl implements HotelService{
+	@Autowired
+	private HotelRepo  hotelRepo;
+
+	@Override
+	public Hotel createHotel(Hotel hotel) {
+		Hotel saveHotel = hotelRepo.save(hotel);
+		return saveHotel;
+	}
+
+	@Override
+	public List<Hotel> getAllHotels() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Hotel gethotel(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

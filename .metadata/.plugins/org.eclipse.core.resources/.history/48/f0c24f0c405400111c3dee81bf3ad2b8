@@ -1,0 +1,5 @@
+package com.lcwd.hotel.repo;
+
+public interface HotelRepo {
+
+}

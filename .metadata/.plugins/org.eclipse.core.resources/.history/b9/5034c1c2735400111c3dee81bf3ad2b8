@@ -1,0 +1,13 @@
+package com.lcwd.rating.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.lcwd.rating.entities.Rating;
+
+public interface RatingRepo extends JpaRepository<Rating, String>{
+
+	void findByUserId();
+
+	void findByHotelId(String hotelId);
+
+}

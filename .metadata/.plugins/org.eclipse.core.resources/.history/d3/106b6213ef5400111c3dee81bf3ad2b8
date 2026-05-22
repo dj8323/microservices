@@ -1,0 +1,49 @@
+package com.lcwd.user.service.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.lcwd.user.service.entities.User;
+import com.lcwd.user.service.exception.ResourceNotFound;
+import com.lcwd.user.service.repo.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService{
+@Autowired
+private UserRepository repository;
+	
+	@Override
+	public User saveUser(User user) {
+		String string = UUID.randomUUID().toString();
+		user.setUserId(string);
+		return repository.save(user);
+		
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		return repository.findAll();
+	}
+
+	@Override
+	public User getUser(String UserId) {
+		// TODO Auto-generated method stub
+		return repository.findById(UserId).orElseThrow(()-> new ResourceNotFound("User not found on given Id["+UserId+"]"));
+	}
+
+	@Override
+	public String deleteUser(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String updateUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

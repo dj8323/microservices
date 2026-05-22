@@ -1,0 +1,24 @@
+spring.application.name=Api-Gateway
+
+
+server.port=9292
+eureka.client.service-url.defaultZone=http://localhost:9090/eureka
+# USER SERVICE ROUTE
+spring.cloud.gateway.routes[0].id=USER-SERVICE
+spring.cloud.gateway.routes[0].uri=lb://USER-SERVICE
+spring.cloud.gateway.routes[0].predicates[0]=Path=/users/**
+
+# HOTEL SERVICE ROUTE
+spring.cloud.gateway.routes[1].id=HOTEL-SERVICE
+spring.cloud.gateway.routes[1].uri=lb://HOTEL-SERVICE
+spring.cloud.gateway.routes[1].predicates[0]=Path=/hotels/**
+
+# RATING SERVICE ROUTE
+spring.cloud.gateway.routes[2].id=RATING-SERVICE
+spring.cloud.gateway.routes[2].uri=lb://RATING-SERVICE
+spring.cloud.gateway.routes[2].predicates[0]=Path=/rating/**
+
+# HOTEL SERVICE ROUTE
+spring.cloud.gateway.routes[3].id=HOTEL-SERVICE
+spring.cloud.gateway.routes[3].uri=lb://HOTEL-SERVICE
+spring.cloud.gateway.routes[3].predicates[0]=Path=/staffs/**
